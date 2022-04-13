@@ -1,9 +1,20 @@
+const mongoose = require('mongoose');
+const { UserModel, PostModel } = require('../models/User')
+
 module.exports = {
-    users: (req, res) => {
-        const users = require('../datas/users.json')
-        res.status(200).render('users', {
-            users
+    getUsers: (req, res) => {
+        UserModel.find({}, (err, users) => {
+            if (err) {
+                res.status(500).send(err)
+            }
+            else {
+                res.status(200).render('users', {
+                    message: 'Posts retrieved',
+                    users
+                })
+            }
         })
+
     },
     user: (req, res) => {
         const users = require('../datas/users.json')
@@ -24,5 +35,42 @@ module.exports = {
                 user
             })
         }
+    },
+    addUser: (req, res) => {
+        const User = new UserModel({
+            firstname: req.body.firstname,
+            lastname: req.body.lastname
+        })
+
+        const Post = new PostModel({
+            title: 'Title',
+            content: 'Content'
+        })
+
+        User.save({}, (err, user) => {
+            if (err) {
+                res.status(500).json({
+                    error: err.message
+                })
+            } else {
+                Post.save({}, (err, post) => {
+                    if (err) {
+                        res.status(500).json({
+                            message: 'Error when saving the thing',
+                            error: err.message
+                        })
+                    } else {
+                        res.status(200).redirect('/user')
+                    }
+                })
+            }
+        })
+    },
+    deleteUser: (req, res) => {
+        UserModel.deleteMany({ firstname: req.query.firstname }, (err, user) => {
+            res.json({
+                user
+            })
+        })
     }
 }

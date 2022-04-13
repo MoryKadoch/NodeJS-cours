@@ -1,0 +1,17 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+	<h1>{{ post.title }}</h1>
+	<p>{{ post.content }}</p>
+	{% if user %}
+		<strong>
+			<span>Author :
+				{{ user.firstname }}
+				{{ user.lastname }}</span>
+		</strong>
+	{% else %}
+<strong>
+		<span>/!\ There is no user for this post</span>
+</strong>
+	{% endif %}
+{% endblock %}

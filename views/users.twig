@@ -14,16 +14,41 @@
 			</tr>
 		</thead>
 		<tbody>
-    {% for key, user in users %}
-			<tr>
-				<th scope="row">{{ key }}</th>
-				<td>{{ user.id }}</td>
-				<td>{{ user.firstname }}</td>
-				<td>{{ user.lastname }}</td>
-				<td>{{ user.age }}</td>
-				<td><a href="/user/{{ user.id }}">Show</a></td>
-			</tr>
-    {% endfor %}
+			{% for key, user in users %}
+				<tr>
+					<th scope="row">{{ key }}</th>
+					<td>{{ user.id }}</td>
+					<td>{{ user.firstname }}</td>
+					<td>{{ user.lastname }}</td>
+					<td>{{ user.age }}</td>
+					<td>
+						<a href="/user/{{ user.id }}">Show</a>
+					</td>
+				</tr>
+			{% endfor %}
 		</tbody>
 	</table>
+
+	<h2>Add User</h2>
+	<form method="POST" action="/user">
+		<div class="form-group">
+			<label for="exampleInputEmail1">Firstname</label>
+			<input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter firstname">
+		</div>
+		<div class="form-group">
+			<label for="exampleInputPassword1">Lastname</label>
+			<input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter lastname">
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+
+	<!--<h2>Delete User</h2>
+	<form method="POST" action="/user/?_method=delete">
+		<div class="form-group">
+			<label for="exampleInputEmail1">Firstname</label>
+			<input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter firstname">
+		</div>
+		<input type="hidden" name="_method" value="DELETE">
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>-->
 {% endblock %}
