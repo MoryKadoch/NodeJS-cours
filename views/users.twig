@@ -10,7 +10,6 @@
 				<th scope="col">Firstname</th>
 				<th scope="col">Lastname</th>
 				<th scope="col">Age</th>
-				<th scope="col">Action</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -21,9 +20,6 @@
 					<td>{{ user.firstname }}</td>
 					<td>{{ user.lastname }}</td>
 					<td>{{ user.age }}</td>
-					<td>
-						<a href="/user/{{ user.id }}">Show</a>
-					</td>
 				</tr>
 			{% endfor %}
 		</tbody>
@@ -32,14 +28,18 @@
 	<h2>Add User</h2>
 	<form method="POST" action="/user">
 		<div class="form-group">
-			<label for="exampleInputEmail1">Firstname</label>
+			<label for="firstname">Firstname</label>
 			<input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter firstname">
 		</div>
 		<div class="form-group">
-			<label for="exampleInputPassword1">Lastname</label>
+			<label for="lastname">Lastname</label>
 			<input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter lastname">
 		</div>
-		<button type="submit" class="btn btn-primary">Submit</button>
+		<div class="form-group">
+			<label for="age">Age</label>
+			<input type="number" class="form-control" id="age" name="age" placeholder="Enter age">
+		</div>
+		<button type="submit" class="btn btn-primary mt-1">Submit</button>
 	</form>
 
 	<!--<h2>Delete User</h2>

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const { UserModel, PostModel } = require('../models/User')
+const { PostModel } = require('../models/Post')
+const { UserModel } = require('../models/User')
 
 module.exports = {
     showPost: (req, res) => {
@@ -9,20 +10,21 @@ module.exports = {
             } else {
                 if (!post) {
                     res.status(404).send('Post not found')
-                }
-                UserModel.findById(post.user, (err, user) => {
-                    if (err) {
-                        res.status(500).send(err)
-                    } else {
-                        if (!post) {
-                            res.status(404).send('Post not found')
+                } else {
+                    UserModel.findById(post.user, (err, user) => {
+                        if (err) {
+                            res.status(500).send(err)
+                        } else {
+                            if (!post) {
+                                res.status(404).send('Post not found')
+                            }
                         }
-                    }
-                    res.render('post', {
-                        post,
-                        user
-                     })
-                })
+                        res.render('post', {
+                            post,
+                            user
+                        })
+                    })
+                }
             }
         })
     },
@@ -51,11 +53,11 @@ module.exports = {
                 })
             }
         })
-        
+
     },
     addPost: (req, res) => {
         UserModel.findById(req.body.user, (err, user) => {
-            if (err) { 
+            if (err) {
                 res.status(500).send(err)
             } else {
                 const post = new PostModel({
@@ -76,10 +78,19 @@ module.exports = {
             }
         })
     },
-    deleteUser: (req, res) => {
-        UserModel.deleteMany({ firstname: req.query.firstname}, (err, user) => {
+    deletePost: (req, res) => {
+        PostModel.deleteOne({ id: req.query.id }, (err, post) => {
             res.json({
-                user
+                post
+            })
+        })
+    },
+    editPost: (req, res) => {
+        PostModel.findByIdAndUpdate(
+            { _id: req.query.id }, { title: req.query.title, content: req.query.content, user: req.query.user }
+        ,(err, post) => {
+            res.json({
+                post
             })
         })
     }

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { UserModel, PostModel } = require('../models/User')
+const { UserModel } = require('../models/User')
 
 module.exports = {
     getUsers: (req, res) => {
@@ -16,35 +16,11 @@ module.exports = {
         })
 
     },
-    user: (req, res) => {
-        const users = require('../datas/users.json')
-        for (let key in users) {
-            if (users[key].id === req.param('id')) {
-                user = users[key];
-                break;
-            }
-            else {
-                user = undefined;
-            }
-        }
-        if (typeof user === 'undefined') {
-            res.status(404).send('Nothing here!');
-        }
-        else {
-            res.status(200).render('user', {
-                user
-            })
-        }
-    },
     addUser: (req, res) => {
         const User = new UserModel({
             firstname: req.body.firstname,
-            lastname: req.body.lastname
-        })
-
-        const Post = new PostModel({
-            title: 'Title',
-            content: 'Content'
+            lastname: req.body.lastname,
+            age: req.body.age
         })
 
         User.save({}, (err, user) => {
@@ -53,21 +29,21 @@ module.exports = {
                     error: err.message
                 })
             } else {
-                Post.save({}, (err, post) => {
-                    if (err) {
-                        res.status(500).json({
-                            message: 'Error when saving the thing',
-                            error: err.message
-                        })
-                    } else {
-                        res.status(200).redirect('/user')
-                    }
-                })
+                res.status(200).redirect('/user')
             }
         })
     },
     deleteUser: (req, res) => {
-        UserModel.deleteMany({ firstname: req.query.firstname }, (err, user) => {
+        UserModel.deleteOne({ id: req.query.id }, (err, user) => {
+            res.json({
+                user
+            })
+        })
+    },
+    editUser: (req, res) => {
+        UserModel.findByIdAndUpdate(
+            { _id: req.query.id }, { firstname: req.query.firstname, lastname: req.query.lastname, age: req.query.age }
+        ,(err, user) => {
             res.json({
                 user
             })

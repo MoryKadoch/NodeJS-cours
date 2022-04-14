@@ -2,16 +2,19 @@
 
 {% block body %}
 	<h1>{{ post.title }}</h1>
-	<p>{{ post.content }}</p>
+	<div class="bg-light p-2">
+		<p>{{ post.content }}</p>
+	</div>
 	{% if user %}
 		<strong>
 			<span>Author :
 				{{ user.firstname }}
-				{{ user.lastname }}</span>
+				{{ user.lastname }}
+			</span>
 		</strong>
 	{% else %}
-<strong>
-		<span>/!\ There is no user for this post</span>
-</strong>
+		<strong>
+			<span>/!\ There is no user for this post</span>
+		</strong>
 	{% endif %}
 {% endblock %}
