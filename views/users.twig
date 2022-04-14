@@ -21,6 +21,8 @@
 					<td>{{ user.lastname }}</td>
 					<td>{{ user.age }}</td>
 				</tr>
+			{% else %}
+				No user here
 			{% endfor %}
 		</tbody>
 	</table>
@@ -43,12 +45,12 @@
 	</form>
 
 	<!--<h2>Delete User</h2>
-	<form method="POST" action="/user/?_method=delete">
-		<div class="form-group">
-			<label for="exampleInputEmail1">Firstname</label>
-			<input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter firstname">
-		</div>
-		<input type="hidden" name="_method" value="DELETE">
-		<button type="submit" class="btn btn-primary">Submit</button>
-	</form>-->
+		<form method="POST" action="/user/?_method=delete">
+			<div class="form-group">
+				<label for="exampleInputEmail1">Firstname</label>
+				<input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter firstname">
+			</div>
+			<input type="hidden" name="_method" value="DELETE">
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>-->
 {% endblock %}

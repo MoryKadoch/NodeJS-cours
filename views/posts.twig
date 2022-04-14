@@ -9,6 +9,8 @@
 				<p>{{ post.content }}</p>
 				<a href="/post/{{ post.id }}">Read more</a>
 			</div>
+		{% else %}
+			No post here
 		{% endfor %}
 	</div>
 	<h2>Add Post</h2>
