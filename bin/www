@@ -8,8 +8,6 @@ var app = require('../app');
 var debug = require('debug')('projet-nodejs:server');
 var http = require('http');
 const mongoose = require('mongoose');
-const methodOverride = require('method-override');
-app.use(methodOverride('_method'));
 /**
  * Get port from environment and store in Express.
  */

@@ -45,7 +45,6 @@ module.exports = {
                         })
                     } else {
                         res.status(200).render('posts', {
-                            message: 'Posts retrieved',
                             posts,
                             users
                         })

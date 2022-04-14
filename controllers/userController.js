@@ -9,7 +9,6 @@ module.exports = {
             }
             else {
                 res.status(200).render('users', {
-                    message: 'Posts retrieved',
                     users
                 })
             }
